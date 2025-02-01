@@ -2,12 +2,14 @@
  * heapsort.c
  *
  *  Created on: Jul 1, 2013
- *      Author:
+ * 	Version: Feb 1, 2025
+ *      Author: Annika Laberge
  */
 #include <stdio.h>
 #include <stdlib.h>
 #include "employee.h"
 #include "heap.h"
+#include <cmath>
 
 /**
  * Sorts a list of n employees in descending order
@@ -17,7 +19,7 @@
  */
 void heapSort(Employee *A, int n)
 {
-	// TODO - BuildHeap on the heap
+	buildHeap(A, n); // TODO - BuildHeap on the heap
 
 	// TODO - while n > 0:
 	// TODO - swap A[n-1] with A[0], since A[0] is the smallest number.
@@ -48,14 +50,48 @@ void buildHeap(Employee *A, int n)
  */
 void heapify(Employee *A, int i, int n)
 {
-	// TODO - get index of left child of element i
-	// TODO - get index of right child of element i
+	if (i > (n - 1))
+	{
+		return;
+	}
+	int leftChild = 2 * (i + 1) - 1; // TODO - get index of left child of element i
+	if (leftChild > n - 1)
+	{
+		return; // We've hit a leaf
+	}
+	int rightChild = 2 * (i + 1); // TODO - get index of right child of element i
+	if (rightChild > n - 1)
+	{
+		rightChild = NULL; // No right child, set to null
+	}
 
-	// TODO - determine which child has a smaller salary. We'll call the index of this
-	//		element: "smaller"
+	int smaller = NULL;
 
-	// TODO - recursively check if the salary at A[i] > the salary at A[smaller]. If it is, swap the two.
-	//			Then recursively heapify A[smaller].
+	if (rightChild == NULL)
+	{ // Check to make sure there is a right child
+		smaller = leftChild;
+	}
+	else if (A[leftChild].salary < A[rightChild].salary)
+	{						 // Determine which child has a smaller salary. 
+		smaller = leftChild; //We'll call the index of this element: "smaller"
+	}
+	else
+	{
+		smaller = rightChild;
+	}
+
+	if (A[i].salary > A[smaller].salary)// TODO - recursively check if the salary at A[i] > the salary at A[smaller]. If it is, swap the two.
+	{
+		swap(i, smaller);
+		heapify(A, smaller, n);
+	}
+	else // We've percolated down to the correct position
+	{
+		return;
+	}										//			Then recursively heapify A[smaller].
+	
+
+	
 	// TODO - Continue recursion as long as i is within range AND either right_child and left_child are still within range.
 }
 
