@@ -9,7 +9,6 @@
 #include <stdlib.h>
 #include "employee.h"
 #include "heap.h"
-#include <cmath>
 
 /**
  * Sorts a list of n employees in descending order
@@ -37,7 +36,12 @@ void heapSort(Employee *A, int n)
  */
 void buildHeap(Employee *A, int n)
 {
-	// TODO - heapify() every element from A[n/2] down-to A[0]
+	// Heapify() every element from A[n/2] down-to A[0]
+	int current = n/2;
+	while (current >= 0){
+		heapify(A, current, n);
+		current++;
+	}
 }
 
 /**
@@ -80,7 +84,7 @@ void heapify(Employee *A, int i, int n)
 		smaller = rightChild;
 	}
 
-	if (A[i].salary > A[smaller].salary)// TODO - recursively check if the salary at A[i] > the salary at A[smaller]. If it is, swap the two.
+	if (A[i].salary > A[smaller].salary)// Recursively check if the salary at A[i] > the salary at A[smaller]. If it is, swap the two.
 	{
 		swap(i, smaller);
 		heapify(A, smaller, n);
@@ -89,10 +93,7 @@ void heapify(Employee *A, int i, int n)
 	{
 		return;
 	}										//			Then recursively heapify A[smaller].
-	
-
-	
-	// TODO - Continue recursion as long as i is within range AND either right_child and left_child are still within range.
+	// Continue recursion as long as i is within range AND either right_child and left_child are still within range.
 }
 
 /**
